@@ -1,0 +1,14 @@
+# Mac stuff
+*.DS_Store
+
+# Python
+*.pyc
+
+# IPython stuff
+.ipynb_checkpoints
+
+# Other
+*.swp
+
+# Profiling stuff
+*.prof

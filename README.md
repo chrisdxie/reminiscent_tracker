@@ -24,7 +24,7 @@ We highly recommend setting up a virtual environment using [Anaconda](https://ww
 
 ```bash
 git clone https://github.com/chrisdxie/reminiscent_tracker.git
-conda create --name tracking_env --python=2.7
+conda create --name tracking_env python=2.7
 source activate tracking_env
 conda install pip jupyter
 conda install -c menpo cyvlfeat
@@ -37,12 +37,13 @@ We highly recommend using [Anaconda](https://www.anaconda.com/distribution/) due
 
 ## How to run the tracker
 
-See [MTCF_example.ipynb](MTCF_example.ipynb) for an example of how to use the tracker. In order to run this file, Jupyter Notebook must be installed. This repository provides a few [OTB](http://cvlab.hanyang.ac.kr/tracker_benchmark/index.html)/[VOT](http://www.votchallenge.net/) videos which you can run the tracker on. 
+See [MTCF_example.ipynb](MTCF_example.ipynb) for an example of how to use the tracker. In order to run this file, Jupyter Notebook must be installed. This repository provides a few [OTB](http://cvlab.hanyang.ac.kr/tracker_benchmark/index.html)/[VOT](http://www.votchallenge.net/) videos which you can run the tracker on in the [videos](videos/) folder. 
 
 Notes:
 
-* the Jupyter Notebook should be run in the directory in which it lives, otherwise the filepaths must be manually adjusted.
-* Upon running the notebook, Keras will automatically download a pre-trained VGG16 model if you haven’t done so before.
+* the notebook should be run in the directory in which it lives, otherwise the filepaths must be manually adjusted.
+* In the notebook, you can choose between `[HOG, HOG+CN, VGG16]` feature representations.
+* Upon running the notebook with VGG16 features, Keras will automatically download a pre-trained VGG16 model if you haven’t done so before.
 
 ## Citation
 Our code is released under GPLv3.

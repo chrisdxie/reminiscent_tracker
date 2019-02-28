@@ -11,7 +11,7 @@ In Proceedings of IEEE International Conference on Robotics and Automation - ICR
 ## Dependencies
 
 1. Python 2.7
-2. [TensorFlow](https://www.tensorflow.org/) (we tested on 1.3.0 and 1.10.0. This will depend on your versions of CUDA and cuDNN)
+2. [TensorFlow](https://www.tensorflow.org/) (this code has been tested on 1.3.0 and 1.10.0. This will depend on your versions of CUDA and cuDNN)
 3. [Keras](https://keras.io/) (we tested on 2.1.4 and 2.2.4)
 4. [cyvlfeat](https://github.com/menpo/cyvlfeat)
 5. [NumPy](http://www.numpy.org/) / [SciPy](https://www.scipy.org/)
@@ -24,19 +24,20 @@ We highly recommend setting up a virtual environment using [Anaconda](https://ww
 
 ```bash
 git clone https://github.com/chrisdxie/reminiscent_tracker.git
-conda create --name tracking_env
+conda create --name tracking_env --python=2.7
 source activate tracking_env
+conda install pip jupyter
 conda install -c menpo cyvlfeat
-pip install tensorflow-gpu
-pip install keras
+cd reminiscent_tracker/
+pip install tensorflow-gpu # pip install tensorflow for CPU version
 pip install -r requirements.txt
 ```
 
-We highly recommend using [Anaconda](https://www.anaconda.com/distribution/) due to the fact that the [cyvlfeat](https://github.com/menpo/cyvlfeat) library depends on the [VLFeat](http://www.vlfeat.org/) toolbox. Without using [Anaconda](https://www.anaconda.com/distribution/), you will have to manually link/compile the [cyvlfeat](https://github.com/menpo/cyvlfeat) library.
+We highly recommend using [Anaconda](https://www.anaconda.com/distribution/) due to the fact that the [cyvlfeat](https://github.com/menpo/cyvlfeat) library depends on the [VLFeat](http://www.vlfeat.org/) toolbox. Without using [Anaconda](https://www.anaconda.com/distribution/), you will have to manually compile/link the [cyvlfeat](https://github.com/menpo/cyvlfeat) library.
 
 ## How to run the tracker
 
-See [MTCF_example.ipynb](MTCF_example.ipynb) for an example of how to use the tracker. This repository provides a few [OTB](http://cvlab.hanyang.ac.kr/tracker_benchmark/index.html)/[VOT](http://www.votchallenge.net/) videos which you can run the tracker on. 
+See [MTCF_example.ipynb](MTCF_example.ipynb) for an example of how to use the tracker. In order to run this file, Jupyter Notebook must be installed. This repository provides a few [OTB](http://cvlab.hanyang.ac.kr/tracker_benchmark/index.html)/[VOT](http://www.votchallenge.net/) videos which you can run the tracker on. 
 
 Notes:
 

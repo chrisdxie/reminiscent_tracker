@@ -4,7 +4,7 @@
 
 This is the implementation of the Multi Template Correlation Filter (MTCF) tracker. This tracker provides a simple ensemble based method that explicitly models the different object appearance variations throughout a video's history. Details of the algorithm can be found in our ICRA 2019 paper:
 
-Christopher Xie, Zaid Harchaoui, Emily Fox<br/>
+Christopher Xie, Emily Fox, Zaid Harchaoui<br/>
 A Simple Adaptive Tracker with Reminiscences<br/>
 In Proceedings of IEEE International Conference on Robotics and Automation - ICRA, 2019
 
@@ -26,8 +26,7 @@ We highly recommend setting up a virtual environment using [Anaconda](https://ww
 git clone https://github.com/chrisdxie/reminiscent_tracker.git
 conda create --name tracking_env python=2.7
 source activate tracking_env
-conda install pip jupyter
-conda install -c menpo cyvlfeat
+conda install -c menpo cyvlfeat pip jupyter
 cd reminiscent_tracker/
 pip install tensorflow-gpu # pip install tensorflow for CPU version
 pip install -r requirements.txt
@@ -53,7 +52,7 @@ If you find our work helpful in your research, please cite our work.
 ```
 @inproceedings{xie2019reminiscences,
   title={A Simple Adaptive Tracker with Reminiscences},
-  author={Xie, Christopher and Harchaoui, Zaid and Fox, Emily},
+  author={Xie, Christopher and Fox, Emily and Harchaoui, Zaid},
   booktitle={IEEE International Conference on Robotics and Automation},
   year={2019},
   organization={IEEE}

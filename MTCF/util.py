@@ -75,7 +75,7 @@ def stderr_print(string):
     print(string, file=sys.stderr)
 
 def resize_image(img, fx, fy, interpolation='zoom'):
-    """ Resizes an image with fx, fy (x ratio, y ratio)
+    """ Resize an image with fx, fy (x ratio, y ratio)
 
         Default interpolation uses cv2.INTER_LINEAR (good for zooming)
     """
@@ -96,7 +96,7 @@ def load_image_with_resize(imagefile, fx=1, fy=1):
     return image
 
 def extract_patch_from_slices(img, width_slice, height_slice):
-    """ Performs MATLAB-like subwindow extraction from a 2D image (w/ multiple channels)
+    """ Perform MATLAB-like subwindow extraction from a 2D image (w/ multiple channels)
 
         Note: The following are equivalent
             Matlab: A([1,3,5],[1,3,5])       # returns a view of the data
@@ -119,14 +119,14 @@ def get_image_filename(file_num, dataset):
         raise Exception('Dataset {0} unrecognized'.format(dataset))
 
 def CLE(rect1, rect2):
-    """ Calculates Center Location Error of two centered rectangles
+    """ Calculate Center Location Error of two centered rectangles
     """
     c1 = np.array(rect1[:2])
     c2 = np.array(rect2[:2])
     return np.linalg.norm(c1 - c2)
 
 def centered_rectangle_to_ltrb_rectangle(region):
-    """ Transforms a centered rectangle format to 
+    """ Transform a centered rectangle format to 
         ltrb format: (left, top, right, bottom)
     """
 
@@ -138,7 +138,7 @@ def centered_rectangle_to_ltrb_rectangle(region):
     return np.array([left, top, right, bottom])
 
 def IoU(rect1, rect2):
-    """ Calculates IoU of two rectangles in centered rectangle format.
+    """ Calculate IoU of two rectangles in centered rectangle format.
     """
     # Convert to ltrb format for simpler processing
     rect1 = centered_rectangle_to_ltrb_rectangle(rect1)
@@ -156,12 +156,14 @@ def IoU(rect1, rect2):
 
 
 def multidim_argmax(M):
-    """ M is some multidimensional array. Return the index of the (first) argmax over all elements of M
+    """ M is some multidimensional array. 
+        Return the index of the (first) argmax over all elements of M
     """
     return np.unravel_index(M.argmax(), M.shape)
 
 def multidim_argmin(M):
-    """ M is some multidimensional array. Return the index of the (first) argmin over all elements of M
+    """ M is some multidimensional array. 
+        Return the index of the (first) argmin over all elements of M
     """
     return np.unravel_index(M.argmin(), M.shape)
 
@@ -190,7 +192,7 @@ def normalize(M):
     return (M.astype(np.float32) - M.min()) / (M.max() - M.min())
 
 def build_matrix_of_indices(width, height):
-    """ Builds a [height, width, 2] numpy array containing indices. 
+    """ Build a [height, width, 2] numpy array containing indices. 
 
         @return: 3d array b such that b[..., 0] is y-indices, b[..., 1] is x-indices
     """

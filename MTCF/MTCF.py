@@ -88,7 +88,7 @@ class MTCF:
     ##### START: Useful Utilities #####
 
     def construct_label_map(self, wh):
-        """ Creates a 2D Gaussian label map in range [0,1]. label_center is (x,y) coordinates
+        """ Create a 2D Gaussian label map in range [0,1]. label_center is (x,y) coordinates
         """
 
         width = wh[0]
@@ -105,7 +105,7 @@ class MTCF:
         return np.expand_dims(label_map, axis=0)
 
     def construct_datapoint_weights(self, k):
-        """ Constructs normalized datapoint weights for tracker k
+        """ Construct normalized datapoint weights for tracker k
         """
 
         alpha = self.params['datapoint_weights'][-self.trackers[k]['num_images'] : ]
@@ -119,7 +119,7 @@ class MTCF:
 
 
     def setup_PCA(self):
-        """ Computes PCA for features
+        """ Compute PCA for features
         """
 
         # Turn use_PCA to false and call get_image_patch. This returns the full number of channels to compute the principle components
@@ -161,8 +161,8 @@ class MTCF:
 
 
     def get_image_patch(self, img, position, window_size, scale_factor, target_size, force_feature=None):
-        """ This method extracts a an image patch from the full image.
-            It then calls get_feature_representation() to extract the features.
+        """ Extract an image patch from the full image.
+            Then call get_feature_representation() to extract the features.
 
             Note: The following are equivalent
                 Matlab: A([1,3,5],[1,3,5])      # returns a view of the data
@@ -215,7 +215,7 @@ class MTCF:
 
 
     def get_feature_representation(self, img_cut, force_feature=None):
-        """ This function extracts a feature representation from the image patch
+        """ Extract a feature representation from the image patch
 
             @param img_cut: a Numpy array of size [H x W x C] to be processed
         """
@@ -290,7 +290,7 @@ class MTCF:
 
 
     def initial_setup(self, initial_img, centered_bbox):
-        """ Sets up some initial settings
+        """ Set up some initial settings
 
             @param initial_img: The initial RGB image. Original size/scale
             @param centered_bbox: The bounding box of the object template in 
@@ -380,7 +380,7 @@ class MTCF:
 
 
     def normalized_tracker_weights(self):
-        """ Computes normalized tracker weights
+        """ Compute normalized tracker weights
         """
         tracker_weights = {k : self.trackers[k]['weight'] * self.trackers[k]['num_images'] for k in list(self.trackers.keys())}
         total_weight = np.sum(list(tracker_weights.values()))
@@ -389,7 +389,7 @@ class MTCF:
         return tracker_weights
 
     def update_tracker_weights(self):
-        """ Updates and assigns tracker weights based on decay factor
+        """ Update and assign tracker weights based on decay factor
         """
         num_trackers = len(list(self.trackers.keys()))
         weights = np.power(1 - self.params['tracker_weight_decay'], np.arange(num_trackers)) # this looks like: [1, 1-\gamma, (1-\gamma)^2, ...]
@@ -487,9 +487,9 @@ class MTCF:
 
 
     def extract_scale_patches(self, img, scale_factors):
-        """ Extracts features from each scale patch
+        """ Extract features from each scale patch
 
-            Returns a [num_scales x H x W x C] numpy array
+            Return a [num_scales x H x W x C] numpy array
         """
 
         # multi-resolution translation filter
@@ -503,8 +503,8 @@ class MTCF:
 
 
     def track(self, img):
-        """ Runs the MTCF tracker on the image.
-            Returns a bounding box in centered rectangle format
+        """ Run the MTCF tracker on the image.
+            Return a bounding box in centered rectangle format
 
             @param img: a Numpy array of [H x W x C]. Original image, original scale
         """

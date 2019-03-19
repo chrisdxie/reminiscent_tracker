@@ -72,7 +72,7 @@ def OTB_video_statistics(video_path):
 def stderr_print(string):
     """ Print to stderr. Useful for VOT software, where normal printing doesn't work
     """
-    print >> sys.stderr, string
+    print(string, file=sys.stderr)
 
 def resize_image(img, fx, fy, interpolation='zoom'):
     """ Resizes an image with fx, fy (x ratio, y ratio)

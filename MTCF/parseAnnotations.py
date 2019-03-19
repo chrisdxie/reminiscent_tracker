@@ -22,7 +22,7 @@ def parseVOTStyleAnnotation(file_name):
 
         # split by commas
         line = line.strip().split(',')
-        values = map(float, line)
+        values = list(map(float, line))
         if len(values) == 8:
             label_type = 'polygon'
             X1, Y1, X2, Y2, X3, Y3, X4, Y4 = values
@@ -69,11 +69,11 @@ def parseOTBStyleAnnotation(file_name):
     gtRect = []
     for line in gtLines:
         if '\t' in line:
-            gtRect.append(map(int,line.strip().split('\t')))
+            gtRect.append(list(map(int,line.strip().split('\t'))))
         elif ',' in line:
-            gtRect.append(map(int,line.strip().split(',')))
+            gtRect.append(list(map(int,line.strip().split(','))))
         elif ' ' in line:
-            gtRect.append(map(int,line.strip().split(' ')))
+            gtRect.append(list(map(int,line.strip().split(' '))))
     gt = np.array(gtRect)
 
     # Calculate center
@@ -84,7 +84,7 @@ def parseOTBStyleAnnotation(file_name):
     height = gt[:,3]
     width = gt[:,2]
 
-    bounding_boxes = { i+1 : {'bx': bx[i], 'by': by[i], 'height': height[i], 'width': width[i]} for i in xrange(gt.shape[0]) }
+    bounding_boxes = { i+1 : {'bx': bx[i], 'by': by[i], 'height': height[i], 'width': width[i]} for i in range(gt.shape[0]) }
 
     return bounding_boxes
 

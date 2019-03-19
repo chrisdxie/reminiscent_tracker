@@ -3,7 +3,7 @@ channels:
   - menpo
   - defaults
 dependencies:
-  - python=2.7
+  - python=3
   - cudatoolkit=9.0
   - tensorflow-gpu=1.10
   - cyvlfeat

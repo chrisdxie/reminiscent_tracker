@@ -6,7 +6,7 @@ import skimage
 import sklearn
 from sklearn.decomposition import PCA
 from time import time
-import util
+from . import util
 from scipy.stats import multivariate_normal
 
 from keras.applications.vgg16 import VGG16
@@ -23,7 +23,7 @@ def compute_datapoint_weights(l, m):
         alpha_j = alpha_{j-1} / (1-l)
     """
     alpha = [1]
-    for i in xrange(m-1):
+    for i in range(m-1):
         new_alpha = alpha[-1] / (1 - l) 
         alpha.append(new_alpha)
     alpha = np.array(alpha)
@@ -382,18 +382,18 @@ class MTCF:
     def normalized_tracker_weights(self):
         """ Computes normalized tracker weights
         """
-        tracker_weights = {k : self.trackers[k]['weight'] * self.trackers[k]['num_images'] for k in self.trackers.keys()}
-        total_weight = np.sum(tracker_weights.values())
-        for k in tracker_weights.keys():
+        tracker_weights = {k : self.trackers[k]['weight'] * self.trackers[k]['num_images'] for k in list(self.trackers.keys())}
+        total_weight = np.sum(list(tracker_weights.values()))
+        for k in list(tracker_weights.keys()):
             tracker_weights[k] /= total_weight
         return tracker_weights
 
     def update_tracker_weights(self):
         """ Updates and assigns tracker weights based on decay factor
         """
-        num_trackers = len(self.trackers.keys())
+        num_trackers = len(list(self.trackers.keys()))
         weights = np.power(1 - self.params['tracker_weight_decay'], np.arange(num_trackers)) # this looks like: [1, 1-\gamma, (1-\gamma)^2, ...]
-        for index, k in enumerate(sorted(self.trackers.keys(), reverse=True)):
+        for index, k in enumerate(sorted(list(self.trackers.keys()), reverse=True)):
             self.trackers[k]['weight'] = weights[index]
 
     def build_filter_network(self, k):
@@ -521,7 +521,7 @@ class MTCF:
 
         # Run each tracker at each scale
         final_corr_maps = {}
-        for k in self.trackers.keys():
+        for k in list(self.trackers.keys()):
 
             # Get the correlation maps for each scale for filter k
             final_corr_maps[k] = self.sess.run(self.trackers[k]['correlation_maps'], feed_dict={self.trackers[k]['image_input'] : scaled_img_patches})
@@ -541,11 +541,11 @@ class MTCF:
         # At each scale, aggregate the correlation maps over trackers with a linear combination using weights
         aggregated_heatmaps = []
         for ind in range(self.params['num_scales']):
-            combined_heatmap = np.sum([tracker_weights[k] * final_corr_maps[k][ind] for k in self.trackers.keys()], axis=0)
+            combined_heatmap = np.sum([tracker_weights[k] * final_corr_maps[k][ind] for k in list(self.trackers.keys())], axis=0)
             aggregated_heatmaps.append(combined_heatmap)
 
         # Find the translation and scale update
-        scale_index = np.argmax(map(np.max, aggregated_heatmaps))
+        scale_index = np.argmax(list(map(np.max, aggregated_heatmaps)))
         argmax = util.multidim_argmax_avg(aggregated_heatmaps[scale_index])
         origin = (np.array(aggregated_heatmaps[scale_index].shape)-1)/2.
         translation = (argmax - origin)[::-1] # Keep position in (x, y) format
@@ -571,7 +571,7 @@ class MTCF:
             self.tracker_initialization(self.K+1)
 
             # Get rid of old trackers if we go over budget
-            if len(self.trackers.keys()) > self.params['max_trackers']:
+            if len(list(self.trackers.keys())) > self.params['max_trackers']:
                 oldest_tracker = min(self.trackers.keys())
                 del self.trackers[oldest_tracker]
 
